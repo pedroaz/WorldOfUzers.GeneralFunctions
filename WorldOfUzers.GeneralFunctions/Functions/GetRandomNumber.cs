@@ -15,9 +15,18 @@ namespace WorldOfUzers.GeneralFunctions.Functions
     {
         private static Random randomGenerator = new Random();
 
+
+        [FunctionName("Ping")]
+        public static async Task<IActionResult> PingFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req, ILogger log)
+        {
+            return new OkObjectResult("It's working!");
+        }
+
+
         [FunctionName("GetRandomNumber")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log,
+        public static async Task<IActionResult> GetRandomNumberFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req, ILogger log,
             [StorageAccount("woudb")]
             [Table("FirstTable")] IAsyncCollector<RandomNumberDTO> table)
         {
