@@ -8,7 +8,6 @@ namespace WorldOfUzers.GeneralFunctions.DTO
     {
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
-        public DateTime Time { get; set; }
         public int RandomValue { get; set; }
 
         public RandomNumberDTO(int value)
@@ -16,7 +15,6 @@ namespace WorldOfUzers.GeneralFunctions.DTO
             PartitionKey = "RandomValue";
             RandomValue = value;
             RowKey = value.ToString();
-            Time = DateTime.Now;
         }
     }
 }

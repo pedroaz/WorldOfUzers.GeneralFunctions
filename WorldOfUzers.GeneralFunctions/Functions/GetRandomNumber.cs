@@ -18,6 +18,7 @@ namespace WorldOfUzers.GeneralFunctions.Functions
         [FunctionName("GetRandomNumber")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req, ILogger log,
+            [StorageAccount("woudb")]
             [Table("FirstTable")] IAsyncCollector<RandomNumberDTO> table)
         {
             log.LogInformation("Recieved a request for a random number");
