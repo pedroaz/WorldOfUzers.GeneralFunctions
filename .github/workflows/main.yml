@@ -25,9 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Initial logs
-        run: echo Starting the build process
+      - name: Azure Login
+        uses: Azure/login@v1.1
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: AZURE_CREDENTIALS
 
       - name: Azure Functions Action
         uses: Azure/functions-action@v1.1.8
