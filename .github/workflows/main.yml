@@ -23,14 +23,31 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      # Setup .net env
+      - name: Setup DotNet 2.2.402 Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 2.2.402
+          
+      # Resolve Dependencies
+      - name: 'Resolve Project Dependencies Using Dotnet'
+        shell: bash
+        run: |
+          pushd '.'
+          dotnet build --configuration Release --output ./output
+          popd
 
+        #Azure Login
       - name: Azure Login
         uses: Azure/login@v1.1
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      
+      # Publish maybe?
       - name: Azure Functions Action
         uses: Azure/functions-action@v1.1.8
         with:
